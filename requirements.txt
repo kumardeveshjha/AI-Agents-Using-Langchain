@@ -1,0 +1,13 @@
+# LangChain
+langchain>=1.0,<2
+langgraph>=1.0,<2
+
+# Model providers (keep only what you use)
+langchain-openai
+langchain-anthropic
+langchain-google-genai
+
+# Utilities
+python-dotenv
+
+

@@ -1,0 +1,80 @@
+
+# ==========================================
+# Python virtual environments
+# ==========================================
+myvenv/
+venv/
+.venv/
+env/
+ENV/
+
+# ==========================================
+# Python cache and compiled files
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ==========================================
+# Environment variables and API secrets
+# ==========================================
+.env
+.env.*
+!.env.example
+
+# ==========================================
+# Jupyter Notebook
+# ==========================================
+.ipynb_checkpoints/
+
+# ==========================================
+# IDE and editor settings
+# ==========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ==========================================
+# Operating system files
+# ==========================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==========================================
+# Logs and temporary files
+# ==========================================
+*.log
+logs/
+tmp/
+temp/
+
+# ==========================================
+# Model weights and large ML artifacts
+# ==========================================
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.safetensors
+*.gguf
+
+# ==========================================
+# Local databases
+# ==========================================
+*.sqlite
+*.sqlite3
+*.db
+
+# ==========================================
+# Build artifacts
+# ==========================================
+build/
+dist/
+*.egg-info/
