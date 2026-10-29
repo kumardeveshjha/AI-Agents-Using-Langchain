@@ -1,0 +1,149 @@
+Chains in langchain is an important component. 
+
+-------- + ----------------------------------+
+Chains makes it easier to make any ai application more convienient to develop
+
+Chains mostly uses Langchain Expression Lnaguage (LCEL) that helps in making pipelines that reduces mannual code and 
+minimize the efforts more effectively.
+
+There are 4 main types of Chains in Langchain 
+
+1. Simple Langchain 
+  +------+
+  |Prompt|  --> {LLM Model} --> Parser(Structured Output)
+  +------+
+
+2. Sequential Lnachain Chains 
+  +---------+
+  |Prompt_1 |  --> {LLM Model} --> Parser(Structured Output) -->|Prompt_2| -->  |LLM Model| --> [ Parser ]
+  +---------+
+
+                                             +-------------+      
+                                             | PromptInput |      
+                                             +-------------+      
+                                                  *             
+                                                  *             
+                                                  *             
+                                             +----------------+     
+                                             | PromptTemplate |     
+                                             +----------------+     
+                                                  *             
+                                                  *             
+                                                  *             
+                                             +------------------------+ 
+                                             | ChatGoogleGenerativeAI | 
+                                             +------------------------+ 
+                                                  *             
+                                                  *             
+                                                  *             
+                                             +-----------------+    
+                                             | StrOutputParser |    
+                                             +-----------------+    
+                                                  *             
+                                                  *             
+                                                  *             
+                                             +-----------------------+  
+                                             | StrOutputParserOutput |  
+                                             +-----------------------+  
+                                                  *             
+                                                  *             
+                                                  *             
+                                             +----------------+     
+                                             | PromptTemplate |     
+                                             +----------------+     
+                                                  *             
+                                                  *             
+                                                  *             
+                                             +------------------------+ 
+                                             | ChatGoogleGenerativeAI | 
+                                             +------------------------+ 
+                                                  *             
+                                                  *             
+                                                  *             
+                                             +-----------------+    
+                                             | StrOutputParser |    
+                                             +-----------------+    
+                                                  *             
+                                                  *             
+                                                  *             
+                                             +-----------------------+  
+                                             | StrOutputParserOutput |  
+                                             +-----------------------+ 
+
+
+3. Parallel Chains 
+    
+                    +---------------------------+                      
+                    | Parallel<notes,quiz>Input |                      
+                    +---------------------------+                      
+                       ***                   ***                       
+                   ****                         ****                   
+                 **                                 **                 
+    +----------------+                          +----------------+     
+    | PromptTemplate |                          | PromptTemplate |     
+    +----------------+                          +----------------+     
+             *                                           *             
+             *                                           *             
+             *                                           *             
++------------------------+                  +------------------------+ 
+| ChatGoogleGenerativeAI |                  | ChatGoogleGenerativeAI | 
++------------------------+                  +------------------------+ 
+             *                                           *             
+             *                                           *             
+             *                                           *             
+    +-----------------+                         +-----------------+    
+    | StrOutputParser |                         | StrOutputParser |    
+    +-----------------+                         +-----------------+    
+                       ***                   ***                       
+                          ****           ****                          
+                              **       **                              
+                    +----------------------------+                     
+                    | Parallel<notes,quiz>Output |                     
+                    +----------------------------+   
+
+4. Conditional Chain
+  --> Can Combine the Complex if - else style conditions and can form a chain 
+  
+                    +-----------------------------------+      
+                    | Parallel<feedback,sentiment>Input |      
+                    +-----------------------------------+      
+                              ***              ***              
+                         ***                    ***           
+                         **                          ***        
+          +----------------+                         **      
+          | PromptTemplate |                          *      
+          +----------------+                          *      
+                    *                                  *      
+                    *                                  *      
+                    *                                  *      
+          +------------------------+                      *      
+          | ChatGoogleGenerativeAI |                      *      
+          +------------------------+                      *      
+                    *                                  *      
+                    *                                  *      
+                    *                                  *      
+          +----------------------+                  +--------+  
+          | PydanticOutputParser |                  | Lambda |  
+          +----------------------+                **+--------+  
+                              ***              ***              
+                               ***           ***                 
+                                   **    **  
+                                    *                  
+                    +------------------------------------+     
+                    | Parallel<feedback,sentiment>Output |     
+                    +------------------------------------+     
+                                        *                        
+                                        *                        
+                                        *                        
+                                   +--------+                   
+                                   | Branch |                   
+                                   +--------+                   
+                                        *                        
+                                        *                        
+                                        *                        
+                              +--------------+                 
+                              | BranchOutput |                 
+                              +--------------+
+
+
+                             
