@@ -6,6 +6,7 @@ from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from dotenv import load_dotenv
 from langchain_core.documents import Document
 
+
 load_dotenv()
 
 # creating docs 
@@ -34,7 +35,7 @@ vector_store = FAISS.from_documents(
 )
 
 # Converting to the retrieval 
-
+# This is sementic retrieval
 retrieval = vector_store.as_retriever(
      search_type='mmr',
      search_kwargs={'k':3,'lambda_mult':0.5}
@@ -47,5 +48,7 @@ query = "What kind of firms i have been part"
 # result 
 
 result = retrieval.invoke(query)
-
 print(result)
+
+
+

@@ -1,9 +1,8 @@
 from langchain_core.documents import Document 
 from langchain_community.vectorstores import FAISS
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain.retrievers import ContextualCompressionRetriever
-from langchain.retrievers.document_compressors import LLMChainExtractor
-
+from langchain_classic.retrievers import MultiQueryRetriever
+from langchain_google_genai.chat_models import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -35,21 +34,41 @@ vector_store = FAISS.from_documents(
 
 
 # Sementic retrival using MMR
-
-retrieval = vector_store.as_retriever(
-     search_type='mmr',
-     search_kwargs={'k': 3, 'lambda_mult': 0.5}
+retrieval = vector_store.as_retriever(search_type='similarity',search_kwargs={'k':5}
 )
 
 # query 
-query = "What are the health benefits of walking and consuming leafy greens?"
+query = "How to improve enerygy levels and maintain balance ?"
 
 
-# retrieval_result = retrieval.invoke(query)
-# print(retrieval_result)
+# This is sementic Retrival 
+retrieval_result = retrieval.invoke(query)
 
 
-# sementic retrieval 
+# Multiquery Retriever 
+
+multi_query = MultiQueryRetriever.from_llm(
+     retriever=vector_store.as_retriever(search_kwargs={'k':5}),
+     llm= ChatGoogleGenerativeAI(model='gemini-3.5-flash-lite')
+)
+
+
+multi_query_result = multi_query.invoke(query)
+
+
+# Printing the result of the both 
+
+for i,doc in enumerate(retrieval_result):
+     print(f" \n -------Result {i+1}-----")
+     print(doc.page_content)
+
+print("*"*100)
+
+# For multi query 
+
+for i,doc in enumerate(multi_query_result):
+     print(f" \n -------Result {i+1}-----")
+     print(doc.page_content)
 
 
 
